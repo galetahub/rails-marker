@@ -54,7 +54,9 @@ And you want edit fields zoom, longitude and latitude:
 <% end %>
 ```
 
-It's all you need!
+It's all you need! Just move the marker, and zoom, latitude and longitude fields will be automatically filled:
+
+![Marker field in use](http://img205.imageshack.us/img205/9493/screenshotfrom201205231.png)
 
 ## Contributing
 
