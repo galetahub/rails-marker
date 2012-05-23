@@ -1,4 +1,4 @@
-equire 'rails'
+require 'rails'
 require 'marker'
 
 module Marker

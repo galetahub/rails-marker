@@ -1,35 +1,42 @@
-module Uploader
+module Marker
   module Helpers
     class FieldTag
-      attr_reader :template, :object, :theme
-
-      delegate :uploader, :to => :template      
+      attr_reader :template, :object, :engine, :html_options
       
-      # Wrapper for render uploader field
+      # Wrapper for render marker field
       # Usage:
       #
-      #   uploader = FieldTag.new(object_name, method_name, template, options)
-      #   uploader.to_s
+      #   marker = FieldTag.new(object_name, method_name, template, options)
+      #   marker.to_s
       #
-      def initialize(object_name, method_name, template, options = {}) #:nodoc:
+      def initialize(object_name, method_name, template, options = {}, html_options = {}) #:nodoc:
         options = { :object_name => object_name, :method_name => method_name }.merge(options)
         
-        @template, @options = template, options.dup
-        @theme = (@options.delete(:theme) || "default")
-        @value = @options.delete(:value) if @options.key?(:value)
-        @object = @template.instance_variable_get("@#{object_name}")
-        
-        @options[:object] ||= @object
-        @options[:input_html] = input_html.merge(@options[:input_html] || {})
+        @template, @options, @html_options = template, options.dup, html_options.dup
+        @engine = (@options.delete(:engine) || "google")
+        @object = (@options.delete(:object) || @template.instance_variable_get("@#{object_name}"))
+        @html_options[:id] ||= id
       end
-
+      
       def to_s(locals = {}) #:nodoc:
         locals = { :field => self }.merge(locals)
-        @template.render :partial => "uploader/#{@theme}/container", :locals => @options.merge(locals)
+        @template.render :partial => "marker/#{@engine}", :locals => @options.merge(locals)
       end
       
       def id
-        @id ||= @template.dom_id(@object, [method_name, 'uploader'].join('_'))
+        @id ||= @template.dom_id(@object, [method_name, 'marker'].join('_'))
+      end
+      
+      def input_options
+        @input_options ||= {:zoom => :zoom, :lat => :latitude, :lng => :longitude}.merge(@options)
+      end
+      
+      def map_options
+        {
+          :field_lat => "##{sanitized_object_name}_#{input_options[:lat]}",
+          :field_lng => "##{sanitized_object_name}_#{input_options[:lng]}",
+          :field_zoom => "##{sanitized_object_name}_#{input_options[:zoom]}"
+        }
       end
       
       def method_name
@@ -40,28 +47,8 @@ module Uploader
         @options[:object_name]
       end
       
-      def multiple?
-        @object.fileupload_multiple?(method_name)
-      end
-      
-      def value
-        @value ||= @object.fileupload_asset(method_name)
-      end
-      
-      def attachments_path(options = {})
-        options = {
-          :guid => @object.fileupload_guid, 
-          :assetable_type => @object.class.name,
-          :klass => @object.class.fileupload_klass(method_name)
-        }.merge(options)
-        
-        options[:assetable_id] = @object.id if @object.persisted?
-        
-        uploader.attachments_path(options)
-      end
-      
-      def input_html
-        {:"data-url" => attachments_path, :multiple => multiple?}
+      def sanitized_object_name
+        @sanitized_object_name ||= object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")
       end
     end
   end
