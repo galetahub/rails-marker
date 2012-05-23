@@ -50,7 +50,7 @@ And you want edit fields zoom, longitude and latitude:
 
 ``` erb
 <%= form_for @office do |f| %>
-  <%= f.marker_field :marker %>
+  <%= f.marker_field :map, {:lat => :latitude, :lng => :longitude}, {:style => "width:890px;height:400px;"} %>
 <% end %>
 ```
 
