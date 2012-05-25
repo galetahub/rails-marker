@@ -1,9 +1,11 @@
 <%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false&language=#{I18n.locale}" %>
 <%= javascript_include_tag "marker/map_google.js" %>
 
-<%= hidden_field field.object_name, field.input_options[:lat] %>
-<%= hidden_field field.object_name, field.input_options[:lng] %>
-<%= hidden_field field.object_name, field.input_options[:zoom] %>
+<%= fields_for(field.object_name, field.object) do |f| -%>
+  <%= f.hidden_field field.input_options[:lat] %>
+  <%= f.hidden_field field.input_options[:lng] %>
+  <%= f.hidden_field field.input_options[:zoom] %>
+<% end -%>
 
 <%= content_tag :div, nil, field.html_options %>
 
