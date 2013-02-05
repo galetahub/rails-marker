@@ -53,7 +53,7 @@ And you want edit fields zoom, longitude and latitude:
   <%= f.marker_field :map, {:lat => :latitude, :lng => :longitude}, {:style => "width:890px;height:400px;"} %>
 <% end %>
 ```
-
+Also support SimpleForm and Formtastic implementation.
 It's all you need! Just move the marker, and zoom, latitude and longitude fields will be automatically filled:
 
 ![Marker field in use](http://img205.imageshack.us/img205/9493/screenshotfrom201205231.png)
@@ -66,4 +66,4 @@ It's all you need! Just move the marker, and zoom, latitude and longitude fields
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-Copyright (c) 2012 Aimbulance, released under the MIT license
+Copyright (c) 2013 Fodojo, released under the MIT license
