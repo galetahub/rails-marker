@@ -4,7 +4,7 @@ require 'marker'
 module Marker
   class Engine < ::Rails::Engine
     
-    initializer "marker.assets_precompile", :group => :assets do |app|
+    initializer "marker.assets_precompile", :group => :all do |app|
       app.config.assets.precompile += ["marker/map_google.js"]
     end
     
