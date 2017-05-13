@@ -1,16 +1,16 @@
 $ = jQuery
 
 class MapGoogle
-  constructor: (@dom_id, options = {}) ->
+  constructor: (@dom, options = {}) ->
     defaults =
       lat: 50.44067063154785
       lng: 30.52654266357422
       zoom: 6
 
-    @options = $.extend defaults, options
+    @element = $(@dom)
+    @options = $.extend defaults, @element.data(), options
 
-    @element = document.getElementById(@dom_id)
-    @name = @element.getAttribute('data-marker')
+    @name = @element.data('marker')
 
     @options.field_lat = "[data-#{@name}='lat']"
     @options.field_lng = "[data-#{@name}='lng']"
@@ -20,14 +20,12 @@ class MapGoogle
 
   _setup: ->
     @location = this._build_location()
-    @map = this._build_map(@element)
+    @map = this._build_map(@element.get(0))
     @marker = this._build_marker()
 
     @field_lat = $(@options.field_lat + ':eq(0)')
     @field_lng = $(@options.field_lng + ':eq(0)')
     @field_zoom = $(@options.field_zoom + ':eq(0)')
-
-    console.log @field_lat
 
     google.maps.event.addListener(@marker, 'dragend', (event) =>
       pos = @marker.getPosition()
