@@ -66,7 +66,7 @@ And you want edit fields zoom, longitude and latitude:
 Also support SimpleForm and Formtastic implementation.
 It's all you need! Just move the marker, and zoom, latitude and longitude fields will be automatically filled:
 
-![Marker field in use](http://img205.imageshack.us/img205/9493/screenshotfrom201205231.png)
+![Marker field in use](https://raw.githubusercontent.com/galetahub/rails-marker/master/screenshots/rails-marker-in-use.png)
 
 ## Contributing
 
