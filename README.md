@@ -6,7 +6,7 @@ Form helpers for edit fields such as zoom, longitude and latitude
 
 Add this line to your application's Gemfile:
 
-    gem 'rails-marker'
+    gem 'rails-marker', require: 'marker'
 
 And then execute:
 
@@ -15,6 +15,12 @@ And then execute:
 Or install it yourself as:
 
     $ gem install rails-marker
+
+## Configure
+
+Get Google API key here https://developers.google.com/maps/documentation/javascript/get-api-key
+
+    Marker.google_api_key = 'your_google_api_key'
 
 ## Usage
 
@@ -41,7 +47,7 @@ For example you have model office:
 class Office < ActiveRecord::Base
   validates_presence_of :title, :address
   validates_numericality_of :latitude, :longitude
-  
+
   attr_accessible :address, :email, :latitude, :longitude, :phone, :title, :is_visible, :zoom
 end
 ```
@@ -50,7 +56,11 @@ And you want edit fields zoom, longitude and latitude:
 
 ``` erb
 <%= form_for @office do |f| %>
-  <%= f.marker_field :map, {:lat => :latitude, :lng => :longitude}, {:style => "width:890px;height:400px;"} %>
+  <%= f.text_field :longitude, data: { map: 'lng' } %>
+  <%= f.text_field :latitude, data: { map: 'lat' } %>
+  <%= f.text_field :zoom, data: { map: 'zoom' } %>
+
+  <%= f.marker_field :map %>
 <% end %>
 ```
 Also support SimpleForm and Formtastic implementation.
@@ -66,4 +76,4 @@ It's all you need! Just move the marker, and zoom, latitude and longitude fields
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-Copyright (c) 2013 Fodojo, released under the MIT license
+Copyright (c) 2017 Fodojo, released under the MIT license

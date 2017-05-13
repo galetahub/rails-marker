@@ -1,16 +1,4 @@
-<%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false&language=#{I18n.locale}" %>
-<%= javascript_include_tag "marker/map_google.js" %>
+<%= javascript_include_tag 'marker/application' %>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Marker.google_api_key}&callback=initMarkerMap", async: true, defer: true %>
 
-<%= fields_for(field.object_name, field.object) do |f| -%>
-  <%= f.hidden_field field.input_options[:lat] %>
-  <%= f.hidden_field field.input_options[:lng] %>
-  <%= f.hidden_field field.input_options[:zoom] %>
-<% end -%>
-
-<%= content_tag :div, nil, field.html_options %>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    new MapGoogle("<%= field.html_options[:id] %>", <%=raw field.map_options.to_json %>);
-  });
-</script>
+<%= content_tag :div, nil, field.input_options %>

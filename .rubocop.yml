@@ -1,0 +1,30 @@
+##################### Styles ##################################
+
+Style/Documentation:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+#################### Lint ##################################
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+##################### Metrics ##################################
+
+Metrics/LineLength:
+  Max: 110
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/ModuleLength:
+  Max: 200
+  Exclude:
+    - "**/*_spec.rb"
+
+Metrics/BlockLength:
+  Max: 50
+  Exclude:
+    - "**/*_spec.rb"

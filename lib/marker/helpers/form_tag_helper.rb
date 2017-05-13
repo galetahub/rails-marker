@@ -1,7 +1,6 @@
 module Marker
   module Helpers
     module FormTagHelper
-      
       # A helper that renders file map container
       #
       #   <%= marker_field_tag :office, :marker %>
