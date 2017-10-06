@@ -58,7 +58,10 @@ And you want edit fields zoom, longitude and latitude:
 <%= form_for @office do |f| %>
   <%= f.text_field :longitude, data: { map: 'lng' } %>
   <%= f.text_field :latitude, data: { map: 'lat' } %>
+
+  // Optional fields
   <%= f.text_field :zoom, data: { map: 'zoom' } %>
+  <%= f.text_field :radius, data: { map: 'radius' } %>
 
   <%= f.marker_field :map %>
 <% end %>
@@ -76,4 +79,4 @@ It's all you need! Just move the marker, and zoom, latitude and longitude fields
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-Copyright (c) 2017 Fodojo, released under the MIT license
+Copyright (c) 2017 Fodojo LLC, released under the MIT license
