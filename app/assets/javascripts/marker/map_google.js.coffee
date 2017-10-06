@@ -6,6 +6,7 @@ class MapGoogle
       lat: 50.44067063154785
       lng: 30.52654266357422
       zoom: 6
+      radius: 1000
 
     @element = $(@dom)
     @options = $.extend defaults, @element.data(), options
@@ -15,6 +16,7 @@ class MapGoogle
     @options.field_lat = "[data-#{@name}='lat']"
     @options.field_lng = "[data-#{@name}='lng']"
     @options.field_zoom = "[data-#{@name}='zoom']"
+    @options.field_radius = "[data-#{@name}='radius']"
 
     this._setup()
 
@@ -26,6 +28,7 @@ class MapGoogle
     @field_lat = $(@options.field_lat + ':eq(0)')
     @field_lng = $(@options.field_lng + ':eq(0)')
     @field_zoom = $(@options.field_zoom + ':eq(0)')
+    @field_radius = $(@options.field_radius + ':eq(0)')
 
     google.maps.event.addListener(@marker, 'dragend', (event) =>
       pos = @marker.getPosition()
@@ -39,6 +42,11 @@ class MapGoogle
     google.maps.event.addListener(@map, 'zoom_changed', () =>
       @field_zoom.val @map.getZoom()
     )
+
+    if @field_radius.length > 0
+      number = this._parse_value(@field_radius, @options.radius)
+      @circle = this._build_circle(radius: number)
+      @circle.bindTo('center', @marker, 'position')
 
   placeMarker: (location) ->
     marker = this._build_marker {position: location}
@@ -74,6 +82,20 @@ class MapGoogle
     settings = $.extend defaults, options
 
     new google.maps.Marker(settings)
+
+  _build_circle: (options = {}) ->
+    defaults =
+      map: @map
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      radius: 1000 # 1 kilometr
+
+    settings = $.extend defaults, options
+
+    new google.maps.Circle(settings)
 
   _parse_value: (field, default_value) ->
     value = parseFloat $(field).val()

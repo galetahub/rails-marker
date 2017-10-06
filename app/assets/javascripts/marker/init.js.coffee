@@ -3,5 +3,6 @@ initMarkerMap = () ->
 
   elements.forEach (el, index, array) ->
     map = new MapGoogle(el)
+    $(el).data('map', map)
 
 window['initMarkerMap'] = initMarkerMap
