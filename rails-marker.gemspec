@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ['Igor Galeta', 'Pavlo Galeta']
   s.email = ['galeta.igor@gmail.com']
   s.homepage = 'https://github.com/galetahub/rails-marker'
+  s.license = 'MIT'
 
   s.files = Dir['{app,lib,config,vendor}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.md']
   s.test_files = Dir['{spec}/**/*']
