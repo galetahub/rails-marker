@@ -17,5 +17,6 @@ Gem::Specification.new do |s|
   s.test_files = Dir['{spec}/**/*']
   s.require_paths = ['lib']
 
+  s.add_development_dependency 'rake'
   s.add_development_dependency 'sqlite3'
 end
