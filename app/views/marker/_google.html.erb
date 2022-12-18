@@ -1,4 +1,4 @@
 <%= javascript_include_tag 'marker/application' %>
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Marker.google_api_key}&callback=initMarkerMap", async: true, defer: true %>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&callback=initMarkerMap", async: true, defer: true %>
 
 <%= content_tag :div, nil, field.input_options %>

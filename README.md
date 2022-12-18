@@ -71,6 +71,19 @@ It's all you need! Just move the marker, and zoom, latitude and longitude fields
 
 ![Marker field in use](https://raw.githubusercontent.com/galetahub/rails-marker/master/screenshots/rails-marker-in-use.png)
 
+### ActiveAdmin
+
+Formtastic integration
+
+``` ruby
+f.inputs name: 'Location', for: [:location, f.object.location || f.object.build_location] do |loc|
+  loc.input :latitude, input_html: { data: { map: 'lat' } }
+  loc.input :longitude, input_html: { data: { map: 'lng' } }
+  loc.input :content, input_html: { rows: 2 }
+  loc.input :map, as: :marker, google_api_key: 'your_google_api_key'
+end
+```
+
 ## Contributing
 
 1. Fork it

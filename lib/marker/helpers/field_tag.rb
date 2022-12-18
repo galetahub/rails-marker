@@ -49,6 +49,10 @@ module Marker
       def object_name
         @options[:object_name]
       end
+
+      def google_api_key
+        @options[:google_api_key] || Marker.google_api_key
+      end
     end
   end
 end
